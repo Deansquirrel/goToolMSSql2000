@@ -1,4 +1,4 @@
-package goToolMSSql
+package goToolMSSql2000
 
 import (
 	"database/sql"
