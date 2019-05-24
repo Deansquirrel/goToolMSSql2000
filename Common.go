@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-var connFormatter string
-
 var dbMap map[string]*sql.DB
 
 var maxIdleConn int
@@ -23,9 +21,12 @@ type MSSqlConfig struct {
 	Pwd    string
 }
 
+const (
+	connFormatter = "Driver={SQL Server};Server=%s,%d;Database=%s;Uid=%s;Pwd=%s;Network=DbMsSoCn;"
+)
+
 func init() {
 	dbMap = make(map[string]*sql.DB)
-	connFormatter = "Driver={SQL Server};Server=%s,%d;Database=%s;Uid=%s;Pwd=%s;Network=DbMsSoCn;"
 	SetMaxIdleConn(15)
 	SetMaxOpenConn(15)
 	SetMaxLifetime(time.Second * 180)
@@ -54,7 +55,6 @@ func GetConn(config *MSSqlConfig) (*sql.DB, error) {
 	_, ok := dbMap[connString]
 	if ok {
 		conn = dbMap[connString]
-		//return conn, nil
 		if IsValid(conn) {
 			return conn, nil
 		} else {
