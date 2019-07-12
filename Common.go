@@ -78,7 +78,7 @@ func getConnStr(config *MSSqlConfig) string {
 //根据配置获取数据库连接
 func getConn(connString string) (*sql.DB, error) {
 	conn, err := sql.Open("odbc", connString)
-	fmt.Println(connString)
+	//fmt.Println(connString)
 	if err != nil {
 		return nil, err
 	}
